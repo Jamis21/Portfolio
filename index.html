@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>James Aredidon — Portfolio</title>
+
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    /* ================================
+       COLOR VARIABLES
+    ================================= */
+    :root {
+      --deep: #2c6e7c;
+      --aqua: #62b0a5;
+      --mint: #b1d0ca;
+      --gray-soft: #c8cfd0;
+      --gray: #aaaaaa;
+
+      /* Light theme */
+      --bg: linear-gradient(180deg, #e8f3f2, #f5f9f9 60%, #ffffff);
+      --card: rgba(255,255,255,0.7);
+      --text: #203437;
+      --muted: #556b6f;
+      --accent: var(--deep);
+      --accent2: var(--aqua);
+
+      --radius: 12px;
+      --shadow: 0 6px 20px rgba(44,110,124,0.12);
+    }
+
+    /* DARK THEME */
+    body.dark {
+      --bg: linear-gradient(180deg, #0f181a, #142325 60%, #0f181a);
+      --card: rgba(255,255,255,0.07);
+      --text: #e5f2f3;
+      --muted: #9fb7ba;
+      --accent: #62b0a5;
+      --accent2: #2c6e7c;
+    }
+
+    /* ================================
+       BASE
+    ================================= */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background .3s ease, color .3s ease;
+      line-height: 1.6;
+    }
+    .container { max-width: 1100px; margin:auto; padding:0 20px; }
+
+    /* ================================
+       HEADER
+    ================================= */
+    .site-header {
+      position: sticky;
+      top:0;
+      z-index:100;
+      backdrop-filter: blur(6px);
+      background: rgba(255,255,255,0.5);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    body.dark .site-header {
+      background: rgba(255,255,255,0.03);
+    }
+    .header-row {
+      padding:16px 0;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .brand { font-size:1.5rem; font-weight:700; }
+    .brand .dot { color:var(--accent); }
+
+    .nav-list {
+      list-style:none;
+      display:flex;
+      gap:20px;
+    }
+    .nav-list a {
+      text-decoration:none;
+      color:var(--text);
+      padding:8px 12px;
+      border-radius:10px;
+      transition:.3s;
+    }
+    .nav-list a:hover {
+      background: linear-gradient(90deg, var(--mint), var(--aqua));
+      color:white;
+      box-shadow: var(--shadow);
+    }
+
+    .theme-toggle {
+      border:none;
+      background:transparent;
+      cursor:pointer;
+      color:var(--text);
+      font-size:20px;
+      padding:8px;
+      transition:.2s;
+    }
+    .theme-toggle:hover {
+      background: rgba(0,0,0,0.08);
+      border-radius:8px;
+    }
+
+    /* ================================
+       HERO SECTION
+    ================================= */
+    .hero {
+      display:flex;
+      gap:40px;
+      padding:120px 0 80px;
+      align-items:center;
+    }
+    .hero-left h1 { font-size:2.5rem; }
+    .lead { color:var(--muted); margin-top:10px; }
+
+    .cta-group { display:flex; gap:12px; margin-top:20px; }
+
+    .btn {
+      padding:12px 20px;
+      border-radius:10px;
+      font-weight:600;
+      text-decoration:none;
+      display:inline-block;
+      transition:.3s;
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, var(--deep), var(--aqua));
+      color:white;
+      box-shadow: var(--shadow);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(90deg, var(--aqua), var(--deep));
+      transform:translateY(-3px);
+    }
+    .btn-ghost {
+      border:2px solid var(--deep);
+      color:var(--deep);
+      background:transparent;
+    }
+    .btn-ghost:hover {
+      background: linear-gradient(90deg, var(--mint), var(--aqua));
+      color:white;
+      border-color:transparent;
+    }
+
+    .socials { display:flex; gap:12px; margin-top:20px; }
+    .socials a {
+      font-size:20px; color:var(--deep);
+      padding:10px; border-radius:8px;
+      transition:.3s;
+    }
+    .socials a:hover {
+      background:var(--mint); color:white;
+    }
+
+    /* HERO IMAGE */
+    .hero-right { position:relative; }
+    .photo-blob {
+      width:430px; height:430px;
+      position:absolute;
+      background:linear-gradient(135deg, var(--aqua), var(--deep));
+      border-radius:45%;
+      filter:blur(35px);
+      top:-40px; left:-45px;
+      opacity:0.85;
+      z-index:0;
+    }
+    .hero-photo {
+      width:300px;
+      border-radius:14px;
+      border:8px solid var(--card);
+      box-shadow:var(--shadow);
+      position:relative;
+      z-index:2;
+      transition: transform 0.3s ease;
+    }
+    .hero-photo:hover {
+      transform: scale(1.05);
+    }
+
+    /* ================================
+       ABOUT SECTION
+    ================================= */
+    section { margin-top:140px; }
+
+    .quick-stats {
+      display:flex;
+      gap:20px;
+      list-style:none;
+      margin-top:20px;
+    }
+    .quick-stats li {
+      background:var(--card);
+      padding:20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      flex:1;
+    }
+    .quick-stats img {
+      width:30px; margin-right:6px;
+      transition:.2s; filter:drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+    }
+    .quick-stats img:hover { transform:scale(1.15); }
+
+    /* ================================
+       PROJECTS
+    ================================= */
+    .project-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+      gap:25px;
+      margin-top:30px;
+    }
+    .project-card {
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      transition:.3s;
+    }
+    .project-card:hover { transform:translateY(-6px); }
+    .project-thumb {
+      width:100%; height:170px; object-fit:cover;
+    }
+    .project-body { padding:18px; }
+
+    /* ================================
+       CONTACT
+    ================================= */
+    .contact-form {
+      max-width:700px;
+      margin:auto;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .form-row { display:flex; gap:12px; }
+    input, textarea {
+      padding:12px;
+      border-radius:10px;
+      border:1px solid rgba(0,0,0,0.07);
+      background:var(--card);
+    }
+
+    /* ================================
+       FOOTER
+    ================================= */
+    footer {
+      text-align:center;
+      padding:30px;
+      margin-top:100px;
+      color:var(--muted);
+    }
+
+    /* MOBILE */
+    @media (max-width:720px) {
+      .hero { flex-direction:column; text-align:center; }
+      .photo-blob { display:none; }
+      .quick-stats { flex-direction:column; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ================================
+       HEADER
+  ================================= -->
+  <header class="site-header">
+    <div class="container header-row">
+      <div class="brand">Jamis<span class="dot">.</span></div>
+
+      <ul class="nav-list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <button id="theme-toggle" class="theme-toggle">
+        <i id="theme-icon" class="fas fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================================
+       HERO
+  ================================= -->
+  <section id="home" class="hero container">
+    <div class="hero-left">
+      <h1>Hi, I'm <strong>James Aredidon</strong></h1>
+      <p class="lead">Associate Software Engineer — building responsive and accessible web experiences.</p>
+
+      <div class="cta-group">
+        <a href="#contact" class="btn btn-primary">Hire Me</a>
+        <a href="#projects" class="btn btn-ghost">See Projects</a>
+      </div>
+
+      <div class="socials">
+        <a href="mailto:jamesaredidon101@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://facebook.com/jmsxplorer" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="photo-blob"></div>
+      <img src="james.jpg" class="hero-photo" alt="James Aredidon">
+    </div>
+  </section>
+
+  <!-- ================================
+       ABOUT
+  ================================= -->
+  <section id="about" class="container about">
+    <h2>About Me</h2>
+    <p>I’m a detail-oriented Associate Software Engineer passionate about creating clean, responsive, and user-focused web applications.</p>
+
+    <ul class="quick-stats">
+      <li>
+        <strong>Languages</strong><br>
+        <span>
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP">
+        </span>
+      </li>
+
+      <li>
+        <strong>Tools</strong><br>
+        <span>
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VSCode">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Google_Chrome_icon_%282011%29.png" alt="Chrome">
+        </span>
+      </li>
+
+      <li>
+        <strong>Interests</strong><br>
+        Web apps • UI • Accessibility • UX • Performance Optimization
+      </li>
+    </ul>
+  </section>
+
+  <!-- ================================
+       PROJECTS
+  ================================= -->
+  <section id="projects" class="container projects">
+    <h2>Projects</h2>
+    <p class="muted">A selection of projects showing my work.</p>
+
+    <div class="project-grid">
+      <article class="project-card">
+        <img src="simple_calculator.png" class="project-thumb">
+        <div class="project-body">
+          <h3>Basic Calculator</h3>
+          <p>A simple web-based calculator that performs basic arithmetic operations like addition, subtraction, multiplication, and division with a clean and responsive interface.</p>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <img src="coolest-cars-feature.jpg" class="project-thumb">
+        <div class="project-body">
+          <h3>Car Inventory</h3>
+          <p>A web application to manage and display a car inventory, allowing users to view, add, and organize car details efficiently.</p>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <img src="pets.jpg" class="project-thumb">
+        <div class="project-body">
+          <h3>PetFinder</h3>
+          <p>A web app that helps users browse and find pets available for adoption, complete with pet details and images.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================================
+       CONTACT
+  ================================= -->
+  <section id="contact" class="container contact">
+    <h2>Contact</h2>
+    <p>If you'd like to work together, send me a message.</p>
+
+    <form class="contact-form" onsubmit="return false;">
+      <div class="form-row">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+      </div>
+      <textarea rows="5" placeholder="How can I help?" required></textarea>
+
+      <button class="btn btn-primary">Send Message</button>
+    </form>
+  </section>
+
+  <!-- ================================
+       FOOTER
+  ================================= -->
+  <footer>
+    © <span id="year"></span> James Aredidon — Built with HTML, CSS & JavaScript
+  </footer>
+
+  <!-- ================================
+       JAVASCRIPT (THEME + YEAR)
+  ================================= -->
+  <script>
+    // Year auto-update
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Theme toggle
+    const toggleBtn = document.getElementById("theme-toggle");
+    const icon = document.getElementById("theme-icon");
+
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      icon.classList.toggle("fa-sun");
+      icon.classList.toggle("fa-moon");
+    });
+  </script>
+
+</body>
+</html>
